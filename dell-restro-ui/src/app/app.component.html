@@ -1,0 +1,38 @@
+<nav class="navbar navbar-light fixed-top bg-light mb-5">
+  <a class="navbar-brand mb-0 h1">European Restaurants</a>
+</nav>
+<div class="container" style="margin-top: 100px;">
+<div class="row">
+  <div class="col-6">  
+  <form class="">
+      <input [(ngModel)]="searchText" name="search" placeholder="Search(by Name or Cusine)" class="form-control mr-sm-2" type="search">
+  </form>
+  </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+  <div class="col-sm-6 col-12" *ngFor="let restro of restros | paginate: { itemsPerPage: 10, currentPage: p }
+   | searchFilter: {Name: searchText, CuisineStyle: searchText}">
+    <div class="border border-info rounded-lg">
+    <div class="media p-3">
+      <img src="../assets/restro-image.png" class="align-self-start mr-3" width="100px" height="100px"/>
+      <div class="media-body">
+        <h5 class="mt-0">{{restro.Name}}</h5>
+        <p>{{restro.CuisineStyle}}</p>
+        <p class="mb-0">{{restro.City}}</p>
+      </div>
+      <div class="rating">
+          <app-rating [rating]='restro.Rating'></app-rating>
+      </div>
+    </div>
+    <div class="border-top border-secondary">
+        {{restro.NumberofReviews}} reviews
+      </div>
+  </div>
+  </div>
+</div>
+<div class="row bg-light" style="height:80px;text-align: center;">
+  <div class="col-12 align-self-center">
+      <pagination-controls class="" (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>
+</div>
